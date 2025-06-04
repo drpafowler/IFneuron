@@ -8,28 +8,32 @@ def run_neuron_network_simulation():
     neuron_A = IFneuron(id="Neuron_A")
     neuron_B = IFneuron(id="Neuron_B")
     neuron_C = IFneuron(id="Neuron_C")
-    neuron_D = IFneuron(id="Neuron_D") 
+    neuron_D = IFneuron(id="Neuron_D")
+    neuron_E = IFneuron(id="Neuron_E")
 
     neuron_A.FIFO = None
     neuron_B.FIFO = None
     neuron_C.FIFO = None
     neuron_D.FIFO = None
+    neuron_E.FIFO = None
 
-    print(f"Created neurons: {neuron_A.id}, {neuron_B.id}, {neuron_C.id}, {neuron_D.id}")
+    print(f"Created neurons: {neuron_A.id}, {neuron_B.id}, {neuron_C.id}, {neuron_D.id}", {neuron_E.id})
 
 
-    # Neuron B receives input from Neuron A
-    neuron_B.receptors.append((neuron_A, 1.0)) # 1.0 is the connection weight
-    print(f"{neuron_B.id} is set to receive input from {neuron_A.id}")
+    # Neuron A and B connects to C
+    neuron_C.receptors.append((neuron_A, -0.8)) # Neuron C receives input from Neuron A
+    neuron_C.receptors.append((neuron_B, -1.0)) # Neuron C receives input from Neuron B
+    print(f"{neuron_C.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
-    # Neuron C receives input from Neuron A (another fan-out)
-    neuron_C.receptors.append((neuron_A, 0.8))
-    print(f"{neuron_C.id} is set to receive input from {neuron_A.id}")
+    # Neurons A and B connect to D
+    neuron_D.receptors.append((neuron_A, 0.7)) # Neuron D receives input from Neuron A
+    neuron_D.receptors.append((neuron_B, 1.2)) # Neuron D receives input from Neuron B
+    print(f"{neuron_D.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
-    # Neuron D receives input from Neuron B and Neuron C (convergent input)
-    neuron_D.receptors.append((neuron_B, 1.2))
-    neuron_D.receptors.append((neuron_C, 0.7))
-    print(f"{neuron_D.id} is set to receive input from {neuron_B.id} and {neuron_C.id}")
+    # Neurons C and D connect to E
+    neuron_E.receptors.append((neuron_C, 1.5)) # Neuron E receives input from Neuron C
+    neuron_E.receptors.append((neuron_D, 1.0)) # Neuron E receives input from Neuron D
+    print(f"{neuron_E.id} is set to receive input from {neuron_C.id} and {neuron_D.id}")
 
 
     # Stimulate Neuron A directly at specific times
@@ -38,14 +42,20 @@ def run_neuron_network_simulation():
     neuron_A.attach_direct_stim(t_ms=90)
     print(f"Direct stimulation times set for {neuron_A.id}: {neuron_A.t_directstim_ms}")
 
-    # Set spontaneous activity for one neuron
-    neuron_C.set_spontaneous_activity(mean_stdev=(200, 20)) 
+    # Stimulate Neuron B directly at specific times (optional, added for more activity)
+    neuron_B.attach_direct_stim(t_ms=20)
+    neuron_B.attach_direct_stim(t_ms=60)
+    print(f"Direct stimulation times set for {neuron_B.id}: {neuron_B.t_directstim_ms}")
+
+    # Optionally, set spontaneous activity for one neuron
+    neuron_C.set_spontaneous_activity(mean_stdev=(200, 20))
     print(f"Spontaneous activity set for {neuron_C.id}")
 
 
-    simulation_duration_ms = 200 
-    dt_ms = 1                    
-    all_neurons = [neuron_A, neuron_B, neuron_C, neuron_D]
+    simulation_duration_ms = 200
+    dt_ms = 1
+    all_neurons = [neuron_A, neuron_B, neuron_C, neuron_D, neuron_E] 
+
 
     print("\nStarting simulation...")
     for t in np.arange(0, simulation_duration_ms + dt_ms, dt_ms):
