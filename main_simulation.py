@@ -21,13 +21,13 @@ def run_neuron_network_simulation():
 
 
     # Neuron A and B connects to C
-    neuron_C.receptors.append((neuron_A, -0.8)) # Neuron C receives input from Neuron A
-    neuron_C.receptors.append((neuron_B, -1.0)) # Neuron C receives input from Neuron B
+    neuron_C.receptors.append((neuron_A, -0.1)) # Neuron C receives input from Neuron A
+    neuron_C.receptors.append((neuron_B, -0.5)) # Neuron C receives input from Neuron B
     print(f"{neuron_C.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
     # Neurons A and B connect to D
-    neuron_D.receptors.append((neuron_A, 0.7)) # Neuron D receives input from Neuron A
-    neuron_D.receptors.append((neuron_B, 1.2)) # Neuron D receives input from Neuron B
+    neuron_D.receptors.append((neuron_A, 0.4)) # Neuron D receives input from Neuron A
+    neuron_D.receptors.append((neuron_B, 0.5)) # Neuron D receives input from Neuron B
     print(f"{neuron_D.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
     # Neurons C and D connect to E
@@ -43,13 +43,13 @@ def run_neuron_network_simulation():
     print(f"Direct stimulation times set for {neuron_A.id}: {neuron_A.t_directstim_ms}")
 
     # Stimulate Neuron B directly at specific times (optional, added for more activity)
-    neuron_B.attach_direct_stim(t_ms=20)
+    neuron_B.attach_direct_stim(t_ms=11)
     neuron_B.attach_direct_stim(t_ms=60)
     print(f"Direct stimulation times set for {neuron_B.id}: {neuron_B.t_directstim_ms}")
 
-    # Optionally, set spontaneous activity for one neuron
-    neuron_C.set_spontaneous_activity(mean_stdev=(200, 20))
-    print(f"Spontaneous activity set for {neuron_C.id}")
+    # set spontaneous activity for one neuron
+    # neuron_C.set_spontaneous_activity(mean_stdev=(200, 20))
+    # print(f"Spontaneous activity set for {neuron_C.id}")
 
 
     simulation_duration_ms = 200
