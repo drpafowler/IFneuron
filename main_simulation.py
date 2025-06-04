@@ -21,18 +21,18 @@ def run_neuron_network_simulation():
 
 
     # Neuron A and B connects to C
-    neuron_C.receptors.append((neuron_A, -0.1)) # Neuron C receives input from Neuron A
-    neuron_C.receptors.append((neuron_B, -0.5)) # Neuron C receives input from Neuron B
+    neuron_C.receptors.append((neuron_A, 0.5)) # Neuron C receives input from Neuron A
+    neuron_C.receptors.append((neuron_B, 0.5)) # Neuron C receives input from Neuron B
     print(f"{neuron_C.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
     # Neurons A and B connect to D
-    neuron_D.receptors.append((neuron_A, 0.4)) # Neuron D receives input from Neuron A
-    neuron_D.receptors.append((neuron_B, 0.5)) # Neuron D receives input from Neuron B
+    neuron_D.receptors.append((neuron_A, 0.9)) # Neuron D receives input from Neuron A
+    neuron_D.receptors.append((neuron_B, 0.7)) # Neuron D receives input from Neuron B
     print(f"{neuron_D.id} is set to receive input from {neuron_A.id} and {neuron_B.id}")
 
     # Neurons C and D connect to E
-    neuron_E.receptors.append((neuron_C, 1.5)) # Neuron E receives input from Neuron C
-    neuron_E.receptors.append((neuron_D, 1.0)) # Neuron E receives input from Neuron D
+    neuron_E.receptors.append((neuron_C, -0.5)) # Neuron E receives input from Neuron C
+    neuron_E.receptors.append((neuron_D, 1.1)) # Neuron E receives input from Neuron D
     print(f"{neuron_E.id} is set to receive input from {neuron_C.id} and {neuron_D.id}")
 
 
